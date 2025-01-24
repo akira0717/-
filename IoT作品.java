@@ -47,7 +47,11 @@
         <h2>現在の機能</h2>
         <p id="currentFunction">未検出</p>
         <button class="button" onclick="testGyro()">センサーをテスト</button>
-    </main>
+<!-- 電車遅延情報表示用 -->
+        <h2>電車の遅延情報</h2>
+<div id="train-delay-info">遅延情報を取得中...</div>
+        </main>
+    <script src="trainDelay.js"></script>
     <script>
         // 現在の機能を表示する処理
         function displayFunction(functionName) {
