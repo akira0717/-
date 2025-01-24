@@ -47,11 +47,11 @@
         <h2>現在の機能</h2>
         <p id="currentFunction">未検出</p>
         <button class="button" onclick="testGyro()">センサーをテスト</button>
-<!-- 電車遅延情報表示用 -->
-        <h2>電車の遅延情報</h2>
-<div id="train-delay-info">遅延情報を取得中...</div>
         </main>
+    <script src=""></script>
+    <script src=""></script>
     <script src="trainDelay.js"></script>
+    <script src=""></script>
     <script>
         // 現在の機能を表示する処理
         function displayFunction(functionName) {
@@ -78,20 +78,26 @@ if (window.DeviceOrientationEvent) {
         // デバッグ用: 回転角度を表示
         document.getElementById("alpha").innerText = `Alpha: ${alpha.toFixed(2)}°`;
 
-        // 回転角度に応じた機能の切り替え
-        if ((alpha >= 0 && alpha < 90)) {
-            activateFunction(1); // 機能1: 回転0°〜90°
-        } else if (alpha >= 90 && alpha < 180) {
-            activateFunction(2); // 機能2: 回転90°〜180°
-        } else if (alpha >= 180 && alpha < 270) {
-            activateFunction(3); // 機能3: 回転180°〜270°
-        } else if (alpha >= 270 && alpha < 360) {
-            activateFunction(4); // 機能4: 回転270°〜360°
-        }
-    });
-} else {
-    alert("このデバイスはDeviceOrientationEventをサポートしていません。");
-}
+         // 回転角度に応じて機能を切り替える
+                if (alpha >= 0 && alpha < 90) {
+                    displayFunction("目覚まし時計");
+                     fetchTrainDelayInfo();
+                } else if (alpha >= 90 && alpha < 180) {
+                    displayFunction("カレンダー");
+                     fetchTrainDelayInfo();
+                } else if (alpha >= 180 && alpha < 270) {
+                    displayFunction("遅延情報表示");
+                    // 遅延情報を表示する関数を呼び出す
+                    fetchTrainDelayInfo();
+                } else if (alpha >= 270 && alpha < 360) {
+                    displayFunction("天気予報");
+                     fetchTrainDelayInfo();
+                } else {
+                    displayFunction("不明な角度");
+                }
+            }, true);
+        } else {
+            alert("このデバイスはジャイロセンサーをサポートしていません。");
 
 // 特定の機能をアクティブにする関数
 function activateFunction(funcNumber) {
